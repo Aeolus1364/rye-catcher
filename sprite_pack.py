@@ -9,3 +9,4 @@ target = pygame.image.load("target.png")
 
 cube_pack = (cube, 3, constants.FPS/7)  # image surface, number of frames (starts at 0), frame rate
 cube_pack2 = (cube2, 3, constants.FPS/7)
+blank = (target, 0, 0)

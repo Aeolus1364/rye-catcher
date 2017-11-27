@@ -17,7 +17,7 @@ class Main:
         self.running = True
 
         self.player = player.Player(surface, (0, 0, 90, 90))
-        self.player2 = player.Player(surface, (100, 100, 90, 90))
+        self.player2 = player.Player(surface, (100, 100, 64, 64))
         self.block = tile.Tile(surface, (300, 300, 64, 64))
 
     def game_loop(self):
@@ -59,7 +59,10 @@ class Main:
             self.player2.update_sprite()
 
             collide.collision_system(self.player, self.player2)
+            collide.collision_system(self.player, self.block)
 
+
+            self.block.render()
             self.player.render()
             self.player2.render()
 

@@ -21,9 +21,10 @@ class Player(entity.Entity):
         self.current_sprite = 0  # current sprite frame
         self.current_frame = 0  # current game frame
 
+
         # self.load_pack(pack)
 
-        self.moving = False
+        self.moving = True
 
     def load_pack(self, pack):  # changes animation cycle
         self.images = pack[0]
@@ -46,7 +47,7 @@ class Player(entity.Entity):
         else:
             if self.moving:
                 self.moving = False
-                self.load_pack(sprite_pack.cube_pack2)
+                self.load_pack(sprite_pack.blank)
 
     def update_sprite(self):  # every set amount of frames, the animation frame progresses by one
         self.current_frame += 1
