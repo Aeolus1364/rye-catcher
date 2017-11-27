@@ -2,25 +2,21 @@ import pygame
 import entity
 import player
 import collide
+import sprite_pack
+import constants
 
 pygame.init()
 
-DISPLAY_X = 1280
-DISPLAY_Y = 800
-FPS = 30
-
-surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y), pygame.FULLSCREEN)
+surface = pygame.display.set_mode((constants.DISPLAY_X, constants.DISPLAY_Y))
 clock = pygame.time.Clock()
-
-slime = pygame.image.load("spritesheet_large.png")
 
 
 class Main:
     def __init__(self):
         self.running = True
 
-        self.player = player.Player(surface, (0, 0, 22, 40), slime)
-        self.player2 = player.Player(surface, (100, 100, 22, 40), slime)
+        self.player = player.Player(surface, (0, 0, 90, 90))
+        self.player2 = player.Player(surface, (100, 100, 90, 90))
 
     def game_loop(self):
         while self.running:
@@ -30,31 +26,35 @@ class Main:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
-                        self.player.x_velocity += -5
+                        self.player.x_velocity += -self.player.velocity
                     if event.key == pygame.K_RIGHT:
-                        self.player.x_velocity += 5
+                        self.player.x_velocity += self.player.velocity
                     if event.key == pygame.K_UP:
-                        self.player.y_velocity += -5
+                        self.player.y_velocity += -self.player.velocity
                     if event.key == pygame.K_DOWN:
-                        self.player.y_velocity += 5
+                        self.player.y_velocity += self.player.velocity
                     if event.key == pygame.K_w:
                         self.running = False
+                    if event.key == pygame.K_q:
+                        self.player.load_pack(cube_pack2)
+                        print("done")
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
-                        self.player.x_velocity -= -5
+                        self.player.x_velocity -= -self.player.velocity
                     if event.key == pygame.K_RIGHT:
-                        self.player.x_velocity -= 5
+                        self.player.x_velocity -= self.player.velocity
                     if event.key == pygame.K_UP:
-                        self.player.y_velocity -= -5
+                        self.player.y_velocity -= -self.player.velocity
                     if event.key == pygame.K_DOWN:
-                        self.player.y_velocity -= 5
+                        self.player.y_velocity -= self.player.velocity
 
             surface.fill((255, 255, 255))
 
-
-            self.player.update()
-            self.player2.update()
+            self.player.update_location()
+            self.player.update_sprite()
+            self.player2.update_location()
+            self.player2.update_sprite()
 
             collide.collision_system(self.player, self.player2)
 
@@ -62,8 +62,8 @@ class Main:
             self.player2.render()
 
             pygame.display.update()
-            clock.tick(FPS)
+            clock.tick(constants.FPS)
 
 
-Main().game_loop()
-
+game = Main()
+game.game_loop()
