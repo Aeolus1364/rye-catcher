@@ -4,6 +4,7 @@ import player
 import collide
 import sprite_pack
 import constants
+import tile
 
 pygame.init()
 
@@ -17,6 +18,7 @@ class Main:
 
         self.player = player.Player(surface, (0, 0, 90, 90))
         self.player2 = player.Player(surface, (100, 100, 90, 90))
+        self.block = tile.Tile(surface, (300, 300, 64, 64))
 
     def game_loop(self):
         while self.running:
