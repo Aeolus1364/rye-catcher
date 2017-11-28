@@ -1,12 +1,12 @@
 import pygame
 
 
-class Entity:
-    def __init__(self, surface, rect):
-        self.x = rect[0]
-        self.y = rect[1]
-        self.width = rect[2]
-        self.height = rect[3]
+class Entity(pygame.sprite.Sprite):
+    def __init__(self, image, rect, bind_image):
+        super(Entity, self).__init__()
 
-        self.surface = surface
+        self.image = image
+        self.rect = self.image.get_rect()
 
+        self.rect.x = rect[0]
+        self.rect.y = rect[1]

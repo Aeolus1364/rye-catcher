@@ -2,26 +2,51 @@ import pygame
 import entity
 import player
 import collide
-import sprite_pack
-import constants
-import tile
+import time
+
 
 pygame.init()
 
-surface = pygame.display.set_mode((constants.DISPLAY_X, constants.DISPLAY_Y))
+DISPLAY_X = 800
+DISPLAY_Y = 800
+FPS = 30
+
+surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y))
 clock = pygame.time.Clock()
+
+target = pygame.image.load("target.png")
 
 
 class Main:
     def __init__(self):
         self.running = True
 
-        self.player = player.Player(surface, (0, 0, 90, 90))
-        self.player2 = player.Player(surface, (100, 100, 64, 64))
-        self.block = tile.Tile(surface, (300, 300, 64, 64))
+        self.player = player.Player(target, (0, 0, 64, 64))
+        self.player2 = player.Player(target, (100, 100, 64, 64))
+
+        self.player_group = pygame.sprite.Group()
+
+        self.player_group.add(self.player, self.player2)
+
+        self.time_old = 0
+        self.time_current = 0
+        self.time_diff = 0
+        self.frame_length = 1/FPS
+        self.frames_elapsed = 0
 
     def game_loop(self):
         while self.running:
+
+            self.time_old = self.time_current
+
+            self.time_current = time.time()
+
+            self.time_diff = self.time_current - self.time_old
+            self.frames_elapsed = self.time_diff/self.frame_length
+            print(self.frames_elapsed)
+
+
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
@@ -37,9 +62,6 @@ class Main:
                         self.player.y_velocity += self.player.velocity
                     if event.key == pygame.K_w:
                         self.running = False
-                    if event.key == pygame.K_q:
-                        self.player.load_pack(cube_pack2)
-                        print("done")
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
@@ -54,21 +76,19 @@ class Main:
             surface.fill((255, 255, 255))
 
             self.player.update_location()
-            self.player.update_sprite()
             self.player2.update_location()
-            self.player2.update_sprite()
 
-            collide.collision_system(self.player, self.player2)
-            collide.collision_system(self.player, self.block)
+            # collide.collision_system(self.player, self.player2)
+            # print(pygame.sprite.collide_rect(self.player, self.player2))
 
 
-            self.block.render()
-            self.player.render()
-            self.player2.render()
+            self.player_group.draw(surface)
 
             pygame.display.update()
-            clock.tick(constants.FPS)
+            clock.tick(FPS)
 
+
+def frame_limiter():
 
 game = Main()
 game.game_loop()
