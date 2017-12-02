@@ -9,8 +9,8 @@ import random
 
 pygame.init()
 
-DISPLAY_X = 800
-DISPLAY_Y = 800
+DISPLAY_X = 64*16
+DISPLAY_Y = 64*10
 FPS = 30
 
 surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y))
@@ -23,7 +23,7 @@ class Main:
     def __init__(self):
         self.running = True
 
-        self.player = player.Player(target, (0, 50, 64, 64), (0, 0))
+        self.player = player.Player(target, (100, 128, 32, 32), (-16, -16))
         self.tile = entity.Tile(pygame.Surface((64, 64)), (100, 50, 64, 64))
         self.tile2 = entity.Tile(pygame.Surface((100, 100)), (50, 100, 100, 100))
 
@@ -40,9 +40,9 @@ class Main:
         self.frame_length = 1/FPS
         self.delta_t = 0
 
-        for i in range(10):
-            tile = entity.Tile(pygame.Surface((64, 64)), (random.randint(0, 500), random.randint(0, 500), 64, 64))
-            self.tile_group.add(tile)
+        # for i in range(10):
+        #     tile = entity.Tile(pygame.Surface((64, 64)), (random.randint(0, 500), random.randint(0, 500), 64, 64))
+        #     self.tile_group.add(tile)
 
     def game_loop(self):
         while self.running:
@@ -95,12 +95,12 @@ class Main:
 
             surface.fill((255, 255, 255))
 
-            collide.collision_resolve(self.player, self.tile_group.sprites())
+            collide.collision_resolve(self.player, self.room.tiles.sprites())
 
             self.player.update_sprite()
 
             self.player_group.draw(surface)
-            self.tile_group.draw(surface)
+            self.room.tiles.draw(surface)
 
             pygame.display.update()
             clock.tick(FPS)
