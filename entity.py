@@ -2,7 +2,7 @@ import pygame
 
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, image, rect, bind_image):
+    def __init__(self, image, rect):
         super(Entity, self).__init__()
 
         self.image = image
@@ -10,3 +10,8 @@ class Entity(pygame.sprite.Sprite):
 
         self.rect.x = rect[0]
         self.rect.y = rect[1]
+
+
+class Tile(Entity):
+    def __init__(self, image, rect):
+        super(Tile, self).__init__(image, rect)

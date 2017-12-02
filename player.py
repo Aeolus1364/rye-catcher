@@ -2,30 +2,46 @@ import pygame
 import entity
 
 
-class Player(entity.Entity):
-    def __init__(self, image, rect):
-        super(Player, self).__init__(image, rect, True)
+class Player:
+    def __init__(self, image, rect, offset):
+
+        self.sprite = PlayerSprite(image, rect, offset)
+
+        self.rect = pygame.Rect(rect)
 
         self.x_velocity = 0
         self.y_velocity = 0
 
+        self.x_velocity_old = 0
+        self.y_velocity_old = 0
+
         self.velocity = 10
 
-        self.x = 0
-        self.y = 0
-        self.width = 0
-        self.height = 0
-
-        self.x_past = 0  # saves coordinates one frame in the past for collision
-        self.y_past = 0
+        self.delta_t = 0
 
         self.moving = True
 
-    def update_location(self):
-        self.x_past = self.rect[0]
-        self.y_past = self.rect[1]
+    def update_x(self):
+        self.rect.x += self.x_velocity * self.delta_t
 
-        self.rect.x += self.x_velocity
-        self.rect.y += self.y_velocity
+    def update_y(self):
+        self.rect.y += self.y_velocity * self.delta_t
 
-        # self.rect = (self.rect[0] + self.x_velocity, self.rect[1] + self.y_velocity, self.rect[2], self.rect[3])
+    def update_sprite(self):
+        self.sprite.update_pos(self.rect.x, self.rect.y)
+
+
+class PlayerSprite(entity.Entity):
+    def __init__(self, image, rect, offset):
+        super(PlayerSprite, self).__init__(image, rect)
+
+        self.x_offset = offset[0]
+        self.y_offset = offset[1]
+
+    def update_pos(self, x, y):
+        self.rect.x = x + self.x_offset
+        self.rect.y = y + self.y_offset
+
+
+
+
