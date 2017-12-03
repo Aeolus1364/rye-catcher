@@ -17,7 +17,7 @@ FPS = 30
 surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y))
 clock = pygame.time.Clock()
 
-target = pygame.image.load("player.png")
+target = pygame.image.load("resources/player.png")
 
 pygame.display.set_caption("Game")
 pygame.display.set_icon(target)
@@ -27,9 +27,14 @@ class Main:
     def __init__(self):
         self.running = True
 
-        self.player = player.Player(target, (100, 128, 48, 48), (-8, -72))
+        self.player = player.Player(target, (100, 128, 64, 64), (0, -72))
 
-        self.room = room.Room("room.txt")
+        self.rooms = []
+        for i in range(2):
+            temproom = room.Room("resources/room"+str(i)+".txt")
+            self.rooms.append(temproom)
+
+        self.current_room = 0
 
         self.textbox = textbox.TextBox(None)
 
@@ -83,6 +88,8 @@ class Main:
                         self.player.x_velocity = 0
                     if event.key == pygame.K_w:
                         self.running = False
+                    if event.key == pygame.K_e:
+                        self.current_room = 1
 
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
@@ -100,15 +107,17 @@ class Main:
 
             surface.fill((255, 255, 255))
 
-            collide.collision_resolve(self.player, self.room.tiles.sprites())
+            self.rooms[self.current_room].collide(self.player)
 
             self.player.update_sprite()
 
-            self.room.tiles.draw(surface)
+            self.rooms[self.current_room].render(surface)
             self.player_group.draw(surface)
             pygame.draw.rect(surface, (100, 50, 100), self.player.rect)
+
             self.screen_elements.draw(surface)
-            surface.blit(self.textbox.write("Testing testing 123"), (self.textbox.rect.x + 10, self.textbox.rect.y + 10))
+
+            self.textbox.write("Testing testing 123", surface)
 
             pygame.display.update()
             clock.tick(FPS)
