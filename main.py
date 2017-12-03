@@ -5,32 +5,37 @@ import collide
 import time
 import room
 import random
+import textbox
 
 
 pygame.init()
 
 DISPLAY_X = 64*16
-DISPLAY_Y = 64*10
+DISPLAY_Y = 64*12
 FPS = 30
 
 surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y))
 clock = pygame.time.Clock()
 
-target = pygame.image.load("target.png")
+target = pygame.image.load("player.png")
+
+pygame.display.set_caption("Game")
+pygame.display.set_icon(target)
 
 
 class Main:
     def __init__(self):
         self.running = True
 
-        self.player = player.Player(target, (100, 128, 32, 32), (-16, -16))
-        self.tile = entity.Tile(pygame.Surface((64, 64)), (100, 50, 64, 64))
-        self.tile2 = entity.Tile(pygame.Surface((100, 100)), (50, 100, 100, 100))
+        self.player = player.Player(target, (100, 128, 48, 48), (-8, -72))
 
         self.room = room.Room("room.txt")
 
+        self.textbox = textbox.TextBox(None)
+
         self.player_group = pygame.sprite.Group()
         self.tile_group = pygame.sprite.Group()
+        self.screen_elements = pygame.sprite.Group(self.textbox)
 
         self.player_group.add(self.player.sprite)
 
@@ -99,11 +104,15 @@ class Main:
 
             self.player.update_sprite()
 
-            self.player_group.draw(surface)
             self.room.tiles.draw(surface)
+            self.player_group.draw(surface)
+            pygame.draw.rect(surface, (100, 50, 100), self.player.rect)
+            self.screen_elements.draw(surface)
+            surface.blit(self.textbox.write("Testing testing 123"), (self.textbox.rect.x + 10, self.textbox.rect.y + 10))
 
             pygame.display.update()
             clock.tick(FPS)
+        pygame.quit()
 
 
 game = Main()
