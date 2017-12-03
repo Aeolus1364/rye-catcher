@@ -29,7 +29,10 @@ class Room:
                         entity.Tile(pygame.Surface((tile_size, tile_size)), (x_cursor, y_cursor, tile_size, tile_size)))
                 elif j == "G":
                     self.doors.add(entity.Door(pygame.image.load("resources/wall.png"),
-                                                 (x_cursor, y_cursor, tile_size, tile_size), 1, (64, 256)))
+                                               (x_cursor, y_cursor, tile_size, tile_size), 1, (64, 192)))
+                elif j == "F":
+                    self.doors.add(entity.Door(pygame.image.load("resources/wall.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 0, (896, 192)))
                 x_cursor += tile_size
             y_cursor += tile_size
 
