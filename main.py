@@ -107,7 +107,9 @@ class Main:
 
             surface.fill((255, 255, 255))
 
-            self.rooms[self.current_room].collide(self.player)
+            switch = self.rooms[self.current_room].collide(self.player)
+            if switch:
+                self.current_room = switch
 
             self.player.update_sprite()
 
