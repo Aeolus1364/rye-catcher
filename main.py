@@ -18,7 +18,7 @@ print(DISPLAY_X, DISPLAY_Y)
 
 clock = pygame.time.Clock()
 
-target = pygame.image.load("resources/player_real1.png")
+target = pygame.image.load("resources/scientist.png")
 button = pygame.image.load("resources/button.png")  # 256 * 64
 button2 = pygame.image.load("resources/button_pressed.png")
 background = pygame.image.load("resources/background.png")
@@ -50,7 +50,7 @@ class Main:
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 2
+        self.current_room = 0
         self.action = False
 
         self.textbox = textbox.TextBox(None)
@@ -72,7 +72,7 @@ class Main:
         #     self.tile_group.add(tile)
 
     def game_loop(self):
-        # self.menu()
+        self.menu()
         while self.running:
 
             self.time_old = self.time_current
