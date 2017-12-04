@@ -14,11 +14,14 @@ DISPLAY_X = 64*16
 DISPLAY_Y = 64*12
 FPS = 30
 
+print(DISPLAY_X, DISPLAY_Y)
+
 clock = pygame.time.Clock()
 
-target = pygame.image.load("resources/player_real.png")
+target = pygame.image.load("resources/player_real1.png")
 button = pygame.image.load("resources/button.png")  # 256 * 64
 button2 = pygame.image.load("resources/button_pressed.png")
+background = pygame.image.load("resources/background.png")
 
 pygame.display.set_caption("Game")
 pygame.display.set_icon(target)
@@ -40,14 +43,15 @@ class Main:
         # game_loop vars
         self.running = True
         self.controls_enabled = True
-        self.player = player.Player(target, (100, 128, 52, 30), (-6, -64 - 30))
+        self.player = player.Player(target, (800, 128, 52, 30), (-6, -48 - 15))
 
         self.rooms = []
-        for i in range(2):
+        for i in range(4):
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 0
+        self.current_room = 2
+        self.action = False
 
         self.textbox = textbox.TextBox(None)
 
@@ -68,7 +72,7 @@ class Main:
         #     self.tile_group.add(tile)
 
     def game_loop(self):
-        self.menu()
+        # self.menu()
         while self.running:
 
             self.time_old = self.time_current
@@ -101,10 +105,8 @@ class Main:
                         if event.key == pygame.K_DOWN:
                             self.player.y_velocity += self.player.velocity
                             self.player.x_velocity = 0
-                        if event.key == pygame.K_w:
-                            self.running = False
-                        if event.key == pygame.K_e:
-                            self.surface = self.surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y), pygame.FULLSCREEN)
+                        if event.key == pygame.K_SPACE:
+                            self.action = True
 
                     if event.type == pygame.KEYUP:
                         if event.key == pygame.K_LEFT:
@@ -119,23 +121,29 @@ class Main:
                         if event.key == pygame.K_DOWN:
                             if self.player.y_velocity:
                                 self.player.y_velocity -= self.player.velocity
+                        if event.key == pygame.K_SPACE:
+                            self.action = False
 
             self.surface.fill((255, 255, 255))
+            # self.surface.blit(background, (0,0))
 
             switch = self.rooms[self.current_room].collide(self.player)
             if switch is not None:
                 self.current_room = switch
 
+            if self.action:
+                self.textbox.text = self.rooms[self.current_room].action_test(self.player)
+                self.action = False
+
             self.player.update_sprite()
 
             self.rooms[self.current_room].render(self.surface)
-            pygame.draw.rect(self.surface, (100, 50, 100), self.player.rect)
 
             self.player_group.draw(self.surface)
 
             self.screen_elements.draw(self.surface)
 
-            self.textbox.write("Testing testing 123", self.surface)
+            self.textbox.write(self.surface)
 
             pygame.display.update()
             clock.tick(FPS)

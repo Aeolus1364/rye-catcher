@@ -1,0 +1,8 @@
+Scientist: Robot, you have been rejected from the manufacturing process.
+Scientist: There was a failure in your central processing development.
+Scientist: Under jurisdiction of the Right to Life Act, biological constructs
+Scientist: cannot be destroyed without due process of law.
+Scientist: You are free to leave.
+You: What is my purpose?
+Scientist: You are a defect, you have no purpose.
+Scientist: The door is over there.

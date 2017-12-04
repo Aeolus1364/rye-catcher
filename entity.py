@@ -17,6 +17,13 @@ class Tile(Entity):
         super(Tile, self).__init__(image, rect)
 
 
+class TriggerTile(Entity):
+    def __init__(self, image, rect, npc_id):
+        super(TriggerTile, self).__init__(image, rect)
+
+        self.npc_id = npc_id
+
+
 class Door(Entity):
     def __init__(self, image, rect, dest, coords):
         super(Door, self).__init__(image, rect)
