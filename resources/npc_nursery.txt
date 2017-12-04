@@ -1,0 +1,9 @@
+Scientist: Hello, reject.
+You: What is this place?
+Scientist: This is the nursery.
+Scientist: Young slimes are raised here for the processing power of their brains.
+Scientist: Once their brains develop past a certain level of complexity, they are
+Scientist: able to be used in the production process.
+You: These poor creatures are used to make fighting machines?
+Scientist: They wouldn't exist without us.
+Scientist: Remember the only reason you exist is because of us.

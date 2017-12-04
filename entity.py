@@ -25,11 +25,14 @@ class TriggerTile(Entity):
 
 
 class Door(Entity):
-    def __init__(self, image, rect, dest, coords):
+    def __init__(self, image, rect, dest, coords, sticks):
         super(Door, self).__init__(image, rect)
 
         self.room_dest = dest
         self.coords = coords
+
+        self.x_stick = sticks[0]
+        self.y_stick = sticks[1]
 
 
 class Button(Entity):

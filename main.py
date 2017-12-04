@@ -43,14 +43,14 @@ class Main:
         # game_loop vars
         self.running = True
         self.controls_enabled = True
-        self.player = player.Player(target, (800, 128, 52, 30), (-6, -48 - 15))
+        self.player = player.Player(target, (128, 512, 52, 30), (-6, -48 - 15))
 
         self.rooms = []
         for i in range(4):
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 2
+        self.current_room = 0
         self.action = False
 
         self.textbox = textbox.TextBox(None)
