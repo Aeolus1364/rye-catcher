@@ -1,10 +1,10 @@
 HHHHHHHHHHHHHHHH
-H              H
-H              H
-H              H
-H              H
-H              H
-H              H
-H              H
-H              H
+H      ccc     H
+H      cCc     H
+H  H   ccc     H
+H  H           4
+H  H           4
+H  HHHHHHHHHHHHH
+3  HWWWWWHWWWWWH
+3  HWWWWWHWWWWWH
 HHHHHHHHHHHHHHHH

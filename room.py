@@ -31,6 +31,9 @@ class Room:
                 if j == "H":
                     self.tiles.add(
                         entity.Tile(pygame.image.load("resources/wall.png"), (x_cursor, y_cursor, tile_size, tile_size)))
+                if j == "W":
+                    self.tiles.add(
+                        entity.Tile(pygame.image.load("resources/water.png"), (x_cursor, y_cursor, tile_size, tile_size)))
                 elif j == " ":
                     self.floor.add(
                         entity.Tile(pygame.image.load("resources/tile.png"),
@@ -43,7 +46,16 @@ class Room:
                                                (x_cursor, y_cursor, tile_size, tile_size), 0, (0, 542), (True, False)))
                 elif j == "2":
                     self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
-                                               (x_cursor, y_cursor, tile_size, tile_size), 0, (64, 0), (False, True)))
+                                               (x_cursor, y_cursor, tile_size, tile_size), 2, (64, 0), (False, True)))
+                elif j == "3":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 1, (896, 0), (False, True)))
+                elif j == "4":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 3, (64, 0), (False, True)))
+                elif j == "5":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 2, (896, 0), (False, True)))
                 elif j == "A":
                     self.npcs.add(npc.NPC(pygame.image.load("resources/scientist.png"),
                                           (x_cursor, y_cursor, tile_size, tile_size), 0, "resources/npc_reject.txt"))
@@ -72,6 +84,21 @@ class Room:
                     self.floor.add(
                         entity.Tile(pygame.image.load("resources/tile.png"),
                                     (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "C":
+                    self.npcs.add(npc.NPC(pygame.image.load("resources/scientist.png"),
+                                          (x_cursor, y_cursor, tile_size, tile_size), 1, "resources/npc_boiler.txt"))
+                    self.tiles.add(
+                        entity.Tile(pygame.image.load("resources/blank64x80.png"), (x_cursor, y_cursor, tile_size, tile_size)))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "c":
+                    self.triggers.add(
+                        entity.TriggerTile(pygame.image.load("resources/blank.png"), (x_cursor, y_cursor, tile_size, tile_size), 1))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
+
 
                 x_cursor += tile_size
             y_cursor += tile_size

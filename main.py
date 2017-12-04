@@ -50,7 +50,7 @@ class Main:
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 0
+        self.current_room = 2
         self.action = False
 
         self.textbox = textbox.TextBox(None)
