@@ -12,9 +12,14 @@ class Room:
         self.triggers = pygame.sprite.Group()
         self.floor = pygame.sprite.Group()
 
+        self.activate = False
+        self.end = False
+
         file = open(room, "r")
         data = file.read()
         file.close()
+
+        self.foo = " "
 
         x_cursor = 0
         y_cursor = 0
@@ -59,6 +64,15 @@ class Room:
                 elif j == "6":
                     self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
                                                (x_cursor, y_cursor, tile_size, tile_size), 4, (64, 0), (False, True)))
+                elif j == "7":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 3, (896, 0), (False, True)))
+                elif j == "8":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 5, (0, 64), (True, False)))
+                elif j == "9":
+                    self.doors.add(entity.Door(pygame.image.load("resources/tile.png"),
+                                               (x_cursor, y_cursor, tile_size, tile_size), 4, (0, 542), (True, False)))
                 elif j == "A":
                     self.npcs.add(npc.NPC(pygame.image.load("resources/scientist.png"),
                                           (x_cursor, y_cursor, tile_size, tile_size), 0, "resources/npc_reject.txt"))
@@ -115,6 +129,34 @@ class Room:
                     self.floor.add(
                         entity.Tile(pygame.image.load("resources/tile.png"),
                                     (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "E":
+                    self.npcs.add(npc.NPC(pygame.image.load("resources/scientist.png"),
+                                          (x_cursor, y_cursor, tile_size, tile_size), 1, "resources/npc_fitting.txt"))
+                    self.tiles.add(
+                        entity.Tile(pygame.image.load("resources/blank64x80.png"), (x_cursor, y_cursor, tile_size, tile_size)))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "e":
+                    self.triggers.add(
+                        entity.TriggerTile(pygame.image.load("resources/blank.png"), (x_cursor, y_cursor, tile_size, tile_size), 1))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "F":
+                    self.npcs.add(npc.NPC(pygame.image.load("resources/water.png"),
+                                          (x_cursor, y_cursor, tile_size, tile_size), 1, "resources/npc_computer.txt"))
+                    self.tiles.add(
+                        entity.Tile(pygame.image.load("resources/blank.png"), (x_cursor, y_cursor, tile_size, tile_size)))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
+                elif j == "f":
+                    self.triggers.add(
+                        entity.TriggerTile(pygame.image.load("resources/blank.png"), (x_cursor, y_cursor, tile_size, tile_size), 1))
+                    self.floor.add(
+                        entity.Tile(pygame.image.load("resources/tile.png"),
+                                    (x_cursor, y_cursor, tile_size, tile_size)))
 
                 x_cursor += tile_size
             y_cursor += tile_size
@@ -141,5 +183,15 @@ class Room:
             if collide.collision_test(player.rect, i):
                 for j in self.npcs.sprites():
                     if j.npc_id == i.npc_id:
-                        return j.interact()
+                        self.foo = j.interact()
+                        if j.activate:
+                            self.activate = True
+                            self.npcs.add(npc.NPC(pygame.image.load("resources/scientist.png"),
+                                              (448, 16, 64, 64), 1,
+                                              "resources/npc_fitting.txt"))
+                        if j.end:
+                            self.end = True
+                        tuple = (self.foo, self.activate, self.end)
+                        return tuple
+
 

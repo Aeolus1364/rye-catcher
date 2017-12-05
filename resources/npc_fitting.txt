@@ -1,0 +1,10 @@
+Scientist: Greetings, Reject.
+You: Is this the last room?
+Scientist: Yes, this is the fitting room. The completed containers are brought here
+Scientist: to be fitted into bodies.
+You: Where do they go after that?
+Scientist: They are sent off the military for use on the frontlines.
+You: Thank you for telling me this.
+You: Where is the control room?
+Scientist: It's over there in the back.
+You: Thanks.

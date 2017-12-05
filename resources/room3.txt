@@ -2,8 +2,8 @@ HHHHHHHHHHHHHHHH
 H      dDd     H
 H      ddd     H
 H  HHHHHHHHHH  H
-5  H        H  6
-5  H        H  6
+5  HHHHHHHHHH  6
+5  HHHHHHHHHH  6
 H  HHHHHHHHHH  H
 H              H
 H              H

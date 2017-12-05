@@ -14,17 +14,16 @@ DISPLAY_X = 64*16
 DISPLAY_Y = 64*12
 FPS = 30
 
-print(DISPLAY_X, DISPLAY_Y)
-
 clock = pygame.time.Clock()
 
-target = pygame.image.load("resources/scientist.png")
+playerimg = pygame.image.load("resources/player.png")
 button = pygame.image.load("resources/button.png")  # 256 * 64
 button2 = pygame.image.load("resources/button_pressed.png")
 background = pygame.image.load("resources/background.png")
+final = pygame.image.load("resources/fin.png")
 
 pygame.display.set_caption("Game")
-pygame.display.set_icon(target)
+pygame.display.set_icon(playerimg)
 
 
 class Main:
@@ -40,17 +39,19 @@ class Main:
 
         self.menu_elements = pygame.sprite.Group(self.button_play, self.button_options)
 
+        self.end = False
+
         # game_loop vars
         self.running = True
         self.controls_enabled = True
-        self.player = player.Player(target, (96, 514, 52, 30), (-6, -48 - 15))
+        self.player = player.Player(playerimg, (96, 514, 52, 30), (-6, -48 - 15))
 
         self.rooms = []
-        for i in range(5):
+        for i in range(6):
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 3
+        self.current_room = 0
         self.action = False
 
         self.textbox = textbox.TextBox(None)
@@ -91,8 +92,8 @@ class Main:
                 if event.type == pygame.QUIT:
                     self.running = False
 
-                if self.controls_enabled:
-                    if event.type == pygame.KEYDOWN:
+                if event.type == pygame.KEYDOWN:
+                    if self.controls_enabled:
                         if event.key == pygame.K_LEFT:
                             self.player.x_velocity += -self.player.velocity
                             self.player.y_velocity = 0
@@ -105,10 +106,15 @@ class Main:
                         if event.key == pygame.K_DOWN:
                             self.player.y_velocity += self.player.velocity
                             self.player.x_velocity = 0
-                        if event.key == pygame.K_SPACE:
-                            self.action = True
+                    if event.key == pygame.K_SPACE:
+                        self.action = True
+                        if self.end:
+                            self.running = False
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
 
-                    if event.type == pygame.KEYUP:
+                if event.type == pygame.KEYUP:
+                    if self.controls_enabled:
                         if event.key == pygame.K_LEFT:
                             if self.player.x_velocity:
                                 self.player.x_velocity -= -self.player.velocity
@@ -121,19 +127,26 @@ class Main:
                         if event.key == pygame.K_DOWN:
                             if self.player.y_velocity:
                                 self.player.y_velocity -= self.player.velocity
-                        if event.key == pygame.K_SPACE:
-                            self.action = False
+                    if event.key == pygame.K_SPACE:
+                        self.action = False
+
 
             self.surface.fill((255, 255, 255))
-            # self.surface.blit(background, (0,0))
 
             switch = self.rooms[self.current_room].collide(self.player)
             if switch is not None:
                 self.current_room = switch
 
             if self.action:
-                self.textbox.text = self.rooms[self.current_room].action_test(self.player)
-                self.action = False
+                out = self.rooms[self.current_room].action_test(self.player)
+                if out:
+                    if out[0]:
+                        self.textbox.text = out[0]
+                    self.action = False
+                    if out[1]:
+                        self.controls_enabled = False
+                    if out[2]:
+                        self.end = True
 
             self.player.update_sprite()
 
@@ -144,6 +157,9 @@ class Main:
             self.screen_elements.draw(self.surface)
 
             self.textbox.write(self.surface)
+
+            if self.end:
+                self.surface.blit(final, (0, 0))
 
             pygame.display.update()
             clock.tick(FPS)
@@ -170,6 +186,9 @@ class Main:
                             self.menu_running = False
                         elif self.button_options.selected:
                             self.surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y), pygame.FULLSCREEN)
+                    if event.key == pygame.K_ESCAPE:
+                        self.running = False
+                        self.menu_running = False
 
             self.surface.fill((255, 255, 255))
 

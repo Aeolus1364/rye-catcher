@@ -1,0 +1,11 @@
+You: I don't see the screwdriver, but I wonder what this computer does...
+You: There are controls for the factory!
+You: I'm going to open the nursery.
+Computer: Nursery door has been opened.
+You: Now all those poor slimes will go free.
+Scientist: Stop right there!
+You: ...
+Scientist: Under article 5 of the Right to Life Act, you have violated the terms of
+Scientist: agreement. You lose all recognition under the law. By the power vested
+Scientist: in me by the state, I authorize your termination. Guards you may enter.
+You: I only wanted to save them...
