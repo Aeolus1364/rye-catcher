@@ -15,7 +15,7 @@ class Player:
         self.x_velocity_old = 0
         self.y_velocity_old = 0
 
-        self.velocity = 10
+        self.velocity = 8
 
         self.delta_t = 0
 

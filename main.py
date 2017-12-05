@@ -36,21 +36,21 @@ class Main:
         self.button_selected = 0
 
         self.button_play = entity.Button(button, button2, (DISPLAY_X/2 - 256/2, DISPLAY_Y/2 - 64, 256, 64), "Play")
-        self.button_options = entity.Button(button, button2, (DISPLAY_X/2 - 256/2, DISPLAY_Y/2 + 64, 256, 64), "Settings")
+        self.button_options = entity.Button(button, button2, (DISPLAY_X/2 - 256/2, DISPLAY_Y/2 + 64, 256, 64), "Fullscreen")
 
         self.menu_elements = pygame.sprite.Group(self.button_play, self.button_options)
 
         # game_loop vars
         self.running = True
         self.controls_enabled = True
-        self.player = player.Player(target, (128, 512, 52, 30), (-6, -48 - 15))
+        self.player = player.Player(target, (96, 514, 52, 30), (-6, -48 - 15))
 
         self.rooms = []
-        for i in range(4):
+        for i in range(5):
             temproom = room.Room("resources/room"+str(i)+".txt")
             self.rooms.append(temproom)
 
-        self.current_room = 0
+        self.current_room = 3
         self.action = False
 
         self.textbox = textbox.TextBox(None)
@@ -169,7 +169,7 @@ class Main:
                         if self.button_play.selected:
                             self.menu_running = False
                         elif self.button_options.selected:
-                            pass
+                            self.surface = pygame.display.set_mode((DISPLAY_X, DISPLAY_Y), pygame.FULLSCREEN)
 
             self.surface.fill((255, 255, 255))
 

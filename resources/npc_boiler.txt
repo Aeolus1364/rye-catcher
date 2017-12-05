@@ -6,6 +6,4 @@ Scientist: It blends them all together so each batch will be uniform.
 Scientist: They work together on the battlefield, as a unit.
 You: Oh.
 Scientist: Do you mind getting me a screwdriver from the control room?
-Scientist: Here's the key, you'll find the room at the end of the hallway.
-Obtained control room key.
 You: Sure, I'll see if I can find it.
