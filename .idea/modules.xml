@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../rogue-like/.idea/rogue-like.iml" filepath="$PROJECT_DIR$/../rogue-like/.idea/rogue-like.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/rye-catcher.iml" filepath="$PROJECT_DIR$/.idea/rye-catcher.iml" />
+    </modules>
+  </component>
+</project>
